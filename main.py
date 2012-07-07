@@ -6,7 +6,7 @@ import tornado.web
 
 from tornado.options import define, options
 
-define("port", default=80, help="run on the given port", type=int)
+define("port", default=5000, help="run on the given port", type=int)
 
 # our python app
 
@@ -47,8 +47,14 @@ class AddHandler(tornado.web.RequestHandler):
 		#self.write('OK')
 		self.write(str(todoList))
 
-if __name__ == "__main__":
+def main():
 	tornado.options.parse_command_line()
 	http_server = tornado.httpserver.HTTPServer(Application())
 	http_server.listen(os.environ.get("PORT", 5000))
+
+	# start it up
 	tornado.ioloop.IOLoop.instance().start()
+
+
+if __name__ == "__main__":
+	main()
