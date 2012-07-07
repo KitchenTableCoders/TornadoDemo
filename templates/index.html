@@ -1,0 +1,42 @@
+<html>
+	<head>
+		<title>My ToDo List</title>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script type="text/javascript">
+			function main(){
+				// Code goes here
+				$('#submit').click(submitForm);
+			}
+
+			function submitForm(){
+				var txt = $('#textField').val();
+				console.log(txt);
+				$.post(
+					'http://localhost/add',
+					{"listitem":txt},
+					submitSuccess
+				);
+			}
+
+			function submitSuccess(data){
+				console.log(data);
+				$('#theList').html(data);
+			}
+
+			$(main);
+
+		</script>
+	</head>
+	<body>
+		<h1>My ToDo List</h1>
+		<div id='theList'>
+			<ul>
+				{% for item in list %}
+					<li>{{ item }}</li>
+				{% end %}
+			</ul>
+		</div>
+		<input id="textField" type="text"></input>
+		<a id="submit" href="#">submit</a>
+	</body>
+</html>
